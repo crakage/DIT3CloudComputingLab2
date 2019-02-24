@@ -1,0 +1,11 @@
+{
+  "fqdns": "",
+  "id": "/subscriptions/183af1e2-b60d-4781-bb66-70bc2f531f8f/resourceGroups/CloudComputingLab2/providers/Microsoft.Compute/virtualMachines/CloudComputingLab2VM",
+  "location": "westeurope",
+  "macAddress": "00-0D-3A-39-30-B2",
+  "powerState": "VM running",
+  "privateIpAddress": "10.0.0.4",
+  "publicIpAddress": "40.114.192.93",
+  "resourceGroup": "CloudComputingLab2",
+  "zones": ""
+}

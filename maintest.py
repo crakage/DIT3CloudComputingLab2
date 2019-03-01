@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from psutil import virtual_memory
+#from psutil import virtual_memory
 import socket
 import multiprocessing
 

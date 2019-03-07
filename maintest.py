@@ -1,8 +1,7 @@
 from flask import Flask, jsonify
-#from psutil import virtual_memory
 import socket
 import multiprocessing
-from subprocess import check_output
+import subprocess
 
 
 app = Flask(__name__)
@@ -21,13 +20,12 @@ def get_ip():  # found in stackoverflow.com
     return IP
 
 def get_pub_ip():
-    ipAddr = check_output(["dig +short myip.opendns.com @resolver1.opendns.com"])
+    ipAddr = call(['dig', '+short', 'myip.opendns.com', '@resolver1.opendns.com'])
     return ipAddr
 
-
-# def get_memory():
-#     my_memory = virtual_memory()
-#     return my_memory.total
+def get_memory():
+    mem = call(["awk", "/MemTotal/ {print $2}", "/proc/meminfo"])
+    return mem
 
 
 @app.route('/status')
@@ -37,9 +35,11 @@ def info():
         "ip address": get_ip(),
         "public ip": get_pub_ip(),
         "cpus": multiprocessing.cpu_count(),
-        "memory": "get_memory()"
+        "memory": get_memory()
     }
     return jsonify(a)
 
 
 app.run(host='0.0.0.0', port=8080)
+
+

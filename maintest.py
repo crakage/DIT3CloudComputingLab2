@@ -21,12 +21,14 @@ def get_ip():  # found in stackoverflow.com
 
 def get_pub_ip():
     with Popen(["dig", "+short", "myip.opendns.com", "@resolver1.opendns.com"], stdout=PIPE) as proc:
-        ipAddr = proc.stdout.read()
-    return ipAddr
+        ipAddr = str(proc.stdout.read())
+        ip = ipAddr[2:-3]
+    return ip
 
 def get_memory():
     with Popen(["awk", "/MemTotal/ {print $2}", "/proc/meminfo"], stdout=PIPE) as proc:
-        mem = proc.stdout.read()
+        memStr = str(proc.stdout.read())
+        mem = memStr[2:-3]
     return mem
 
 

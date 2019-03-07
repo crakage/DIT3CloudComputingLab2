@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
-from psutil import virtual_memory
 import socket
 import multiprocessing
+from subprocess import Popen, PIPE
 
 
 app = Flask(__name__)
@@ -19,10 +19,17 @@ def get_ip():  # found in stackoverflow.com
         s.close()
     return IP
 
+def get_pub_ip():
+    with Popen(["dig", "+short", "myip.opendns.com", "@resolver1.opendns.com"], stdout=PIPE) as proc:
+        ipAddr = str(proc.stdout.read())
+        ip = ipAddr[2:-3]
+    return ip
 
 def get_memory():
-    my_memory = virtual_memory()
-    return my_memory.total
+    with Popen(["awk", "/MemTotal/ {print $2}", "/proc/meminfo"], stdout=PIPE) as proc:
+        memStr = str(proc.stdout.read())
+        mem = memStr[2:-3]
+    return mem
 
 
 @app.route('/status')
@@ -30,10 +37,12 @@ def info():
     a = {
         "hostname": socket.gethostname(),
         "ip address": get_ip(),
+        "public ip": get_pub_ip(),
         "cpus": multiprocessing.cpu_count(),
         "memory": get_memory()
     }
     return jsonify(a)
 
 
-app.run(port=8080)
+app.run(host='0.0.0.0', port=8080)
+

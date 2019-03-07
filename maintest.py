@@ -20,7 +20,7 @@ def get_ip():  # found in stackoverflow.com
     return IP
 
 def get_pub_ip():
-    with Popen(["'dig', '+short', 'myip.opendns.com', '@resolver1.opendns.com'"], stdout=PIPE) as proc:
+    with Popen(["dig", "+short", "myip.opendns.com", "@resolver1.opendns.com"], stdout=PIPE) as proc:
         ipAddr = proc.stdout.read()
     return ipAddr
 

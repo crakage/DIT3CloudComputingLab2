@@ -35,7 +35,7 @@ def info():
     a = {
         "hostname": socket.gethostname(),
         "ip address": get_ip(),
-        "public ip": dig +short myip.opendns.com @resolver1.opendns.com
+        "public ip": get_pub_ip(),
         "cpus": multiprocessing.cpu_count(),
         "memory": "get_memory()"
     }

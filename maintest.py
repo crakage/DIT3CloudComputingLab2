@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 import socket
 import multiprocessing
-import subprocess
+from subprocess import call
 
 
 app = Flask(__name__)

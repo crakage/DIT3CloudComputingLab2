@@ -16,6 +16,8 @@
  wait
  echo "Opening Port 8080"
  az vm open-port --resource-group CloudComputingLab2 --name CloudComputingLab2VM --port 8080
+ #echo "Apply DNS name for easy access"
+ #az network dns record-set a add-record -g CloudComputingLab2 -z westeurope.cloudapp.azure.com -n dvoillemincclab2 -a 10.0.0.10
  echo "You are done (actually no lol)"
 
 

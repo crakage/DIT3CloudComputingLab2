@@ -14,11 +14,13 @@
   --output json \
   --verbose | awk '/publicIpAddress/ {match($0,/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/); ip = substr($0,RSTART,RLENGTH); print ip}'))
  wait
+ echo "Opening Port 8080"
+ az vm open-port --resource-group CloudComputingLab2 --name CloudComputingLab2VM --port 8080
  echo "You are done (actually no lol)"
 
 
 echo "SSH connection " $ip_return
-ssh $ip_return
+ssh -o "StrictHostKeyChecking no" $ip_return
 
 # GOOD until HERE then it goes on the server but the rest of the command are not executed until you leave the server.
 

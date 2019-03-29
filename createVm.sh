@@ -22,26 +22,23 @@
 
 
 echo "SSH connection " $ip_return
-ssh -o "StrictHostKeyChecking no" $ip_return
-
-# GOOD until HERE then it goes on the server but the rest of the command are not executed until you leave the server.
-
-# echo "Preparation of the Server"
-# sudo apt-get update
-# sudo apt-get install python3.6
-
-# echo "Download Github file"
-# git clone https://github.com/crakage/DIT3CloudComputingLab2.git
-
-# echo "Initiate Virtual Environement and Libaries"
-# python3 -m venv venv
-# . venv/bin/activate
-# pip install --upgrade pip
-# pip install flask
+ssh -o "StrictHostKeyChecking no" $ip_return <<EOF
+echo "Preparation of the Server"
+sudo apt-get update
+sudo apt-get --assume-yes install python3-venv
+echo "Download Github file"
+git clone https://github.com/crakage/DIT3CloudComputingLab2.git
+cd DIT3CloudComputingLab2
+echo "Initiate Virtual Environement and Libaries"
+python3 -m venv venv
+. venv/bin/activate
+pip install --upgrade pip
+pip install flask
 # pip install psutil
-
-# echo "Starting Flask Application"
-# python3 main.py 
+echo "Starting Flask Application"
+python3 maintest.py 
+echo "You done, test now !"
+EOF
 
  # Cleanup >> az group delete --name CloudComputingLab2 --no-wait
 
